@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.gustavoweb.course.entities.Category;
 import com.gustavoweb.course.entities.Order;
@@ -22,7 +24,7 @@ import com.gustavoweb.course.repositories.UserRepository;
 
 @Configuration //class de configutação
 @Profile("test") //configuração especifica ao perfil de teste
-public class TestConfig implements CommandLineRunner{
+public class TestConfig implements CommandLineRunner, WebMvcConfigurer{
 	
 	//injeção de dependência
 	@Autowired 
@@ -39,6 +41,15 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private OrderItemRepository orderItemRepository;
+	
+	
+	
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedOrigins("http://localhost:3000")
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS",  "HEAD", "TRACE", "CONNECT");
+    }
 
 	@Override
 	public void run(String... args) throws Exception {
