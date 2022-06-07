@@ -63,6 +63,10 @@ public class OrderItem implements Serializable{
 	public void setProduct() {
 		id.setProduct(getProduct());
 	}
+	
+	public Double getSubTotal() {
+		return price * quantity;
+	}
 
 	@Override
 	public int hashCode() {
