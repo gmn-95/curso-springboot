@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.gustavoweb.course.entities.Category;
 import com.gustavoweb.course.entities.Order;
 import com.gustavoweb.course.entities.OrderItem;
+import com.gustavoweb.course.entities.Payment;
 import com.gustavoweb.course.entities.Product;
 import com.gustavoweb.course.entities.User;
 import com.gustavoweb.course.entities.enums.OrderStatus;
@@ -91,6 +92,11 @@ public class TestConfig implements CommandLineRunner, WebMvcConfigurer{
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2022-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 		
 	}
 }
